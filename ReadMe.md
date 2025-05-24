@@ -1,11 +1,12 @@
 # 🫁 Breathing Rate Detection via Dual-Channel ADC (STM32 + Python)
-
+completed by: *Loo Yi Ren Dillon*
 This project implements a real-time breathing rate monitoring system using an STM32 microcontroller and Python-based signal processing. Two analog signals (e.g., from a pressure sensor and a conductive rubber sensor) are sampled using dual ADC channels. The data is transmitted to a host computer over UART and analyzed to extract breathing patterns and estimate breaths per minute (BPM).
 
 ---
 
 ## 📁 Project Structure
-TRC3500_PROJECT3/
+
+/
 ├── .gitignore                    # Git ignore rules
 ├── ReadMe.md                     # Project documentation (you are here)
 ├── requirements_macOS.txt        # Python dependencies for macOS
