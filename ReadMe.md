@@ -1,19 +1,18 @@
-# 🫁 Breathing Rate Detection via Dual-Channel ADC (STM32 + Python)
-completed by: *Loo Yi Ren Dillon*
+# 🫁 Breathing Rate Detection via Dual-Channel ADC (STM32 + Python 3.11.2)
+Completed by: *Loo Yi Ren Dillon*
+
 This project implements a real-time breathing rate monitoring system using an STM32 microcontroller and Python-based signal processing. Two analog signals (e.g., from a pressure sensor and a conductive rubber sensor) are sampled using dual ADC channels. The data is transmitted to a host computer over UART and analyzed to extract breathing patterns and estimate breaths per minute (BPM).
 
----
-
 ## 📁 Project Structure
-
+```
 /
-├── .gitignore                    # Git ignore rules
-├── ReadMe.md                     # Project documentation (you are here)
-├── requirements_macOS.txt        # Python dependencies for macOS
-├── requirements_winOS.txt        # Python dependencies for Windows
-├── stm_final.zip                 # STM32 project archive (HAL firmware with ADC & UART)
-├── uart_p3.py                    # Python script for signal processing and plotting
----
+├── .gitignore # Git ignore rules
+├── ReadMe.md # Project documentation (you are here)
+├── requirements_macOS.txt # Python dependencies for macOS
+├── requirements_winOS.txt # Python dependencies for Windows
+├── stm_final.zip # STM32 project archive (HAL firmware with ADC & UART)
+└── uart_p3.py # Python script for signal processing & plotting
+```
 
 ## ⚙️ System Overview
 
@@ -27,11 +26,10 @@ This project implements a real-time breathing rate monitoring system using an ST
 
 - **STM32 Microcontroller**:
   - Samples analog input via dual ADC channels
-  - Transmits data via UART
+  - Transmits data via UART (USART2 channel)
 - **Python Script**:
   - Receives data
   - Converts ADC values to voltages (mV)
-  - Flips one signal around mid-supply (1.65 V)
   - Smooths signals using moving average
   - Detects peaks
   - Estimates and displays breathing rate
@@ -41,8 +39,8 @@ This project implements a real-time breathing rate monitoring system using an ST
 
 ## 🔌 STM32 Firmware Details
 
-- **ADC**: Dual-channel DMA sampling (e.g., ADC1_IN5 and ADC2_IN6)
-- **Sampling Rate**: 100 Hz total (50 Hz per channel, interleaved)
+- **ADC**: Dual-channel DMA sampling (ADC1_IN5 and ADC2_IN6)
+- **Sampling Rate**: 100 Hz total (per channel)
 - **UART Transmission**:
   - Sends 6000 bytes (3000 samples/channel × 2 bytes/sample)
   - Transmission triggered after printing `"START\r\n"`
