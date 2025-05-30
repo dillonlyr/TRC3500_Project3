@@ -6,12 +6,24 @@ This project implements a real-time breathing rate monitoring system using an ST
 ## 📁 Project Structure
 ```
 /
-├── .gitignore # Git ignore rules
-├── ReadMe.md # Project documentation (you are here)
-├── requirements_macOS.txt # Python dependencies for macOS
-├── requirements_winOS.txt # Python dependencies for Windows
-├── stm_final.zip # STM32 project archive (HAL firmware with ADC & UART)
-└── uart_p3.py # Python script for signal processing & plotting
+├── .gitignore                 # Git ignore rules
+├── ReadMe.md                  # Project documentation (you are here)
+├── requirements_macOS.txt     # Python dependencies for macOS
+├── requirements_winOS.txt     # Python dependencies for Windows
+├── stm_final.zip              # STM32 project archive (HAL firmware with ADC & UART)
+└──/ Python Scripts
+   ├── plotting.ipynb     # Plotting Jupyter notebook for report
+   ├── uart_p3.py         # Deployed DSP/signal filtering Python script
+   ├── uart_p3_v2.py      # Further testings/enhancements
+   ├── uart_p3_v3.py      # Further testings/enhancements
+   ├── uart_pv4.py        # Further testings/enhancements
+   ├──/ data            # Report demonstration datas
+      ├── exercise_sample1.csv
+      ├── exercise_sample2.csv
+      ├── normal_sample1.csv
+      ├── normal_exercise_sample2.csv         
+   ├── output          # Report output graphs 
+   ├── output_params   # Function parameter Gridtest results
 ```
 
 ## ⚙️ System Overview
