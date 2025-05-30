@@ -21,7 +21,7 @@ This project implements a real-time breathing rate monitoring system using an ST
       ├── exercise_sample1.csv
       ├── exercise_sample2.csv
       ├── normal_sample1.csv
-      ├── normal_exercise_sample2.csv         
+      ├── normal_sample2.csv         
    ├── output          # Report output graphs 
    ├── output_params   # Function parameter Gridtest results
 ```
