@@ -2,6 +2,8 @@ import serial
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
+import csv
+import os
 
 #* ==================== CONFIGURATIONS ====================
 PORT = '/dev/tty.usbmodem11103'
@@ -71,6 +73,7 @@ def acquire_and_plot_voltages():
             break
 
     print("Receiving data...")
+    print("--------------------------------------")
 
     # === Read binary data ===
     total_bytes = TOTAL_SAMPLES * 2
@@ -94,6 +97,18 @@ def acquire_and_plot_voltages():
     v_smooth1 = moving_average(v_adc1, MOVING_AVG_WINDOW)
     v_smooth2 = moving_average(v_adc2, MOVING_AVG_WINDOW)
 
+    # === Save to CSV ===
+    csv_filename = "moving_average_2.csv"
+    csv_path = os.path.join(os.getcwd(), csv_filename)
+
+    with open(csv_path, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Raw_V1 (Pressure)', 'Raw_V2 (Rubber)', 'Filtered_V1', 'Filtered_V2'])
+        for r1, r2, f1, f2 in zip(v_adc1, v_adc2, v_smooth1, v_smooth2):
+            writer.writerow([f"{r1:.3f}", f"{r2:.3f}", f"{f1:.3f}", f"{f2:.3f}"])
+
+    print(f"Saved data to {csv_filename}")
+
     # === Detect Peaks for both signals ===
     peaks1, _ = find_peaks(v_smooth1, distance=MIN_DISTANCE_SAMPLES, prominence=MIN_PROMINENCE)
     peaks2, _ = find_peaks(v_smooth2, distance=MIN_DISTANCE_SAMPLES, prominence=MIN_PROMINENCE)
@@ -101,6 +116,15 @@ def acquire_and_plot_voltages():
     # === Estimate BPMs ===
     estimate_bpm(peaks1, time_smooth, label="Pressure")
     estimate_bpm(peaks2, time_smooth, label="Rubber")
+
+                # === Average Peak Voltages ===
+    if len(peaks1) > 0:
+        avg_peak_v1 = np.mean(v_smooth1[peaks1])
+        print(f"Averaged Peak Voltage (Pressure): {avg_peak_v1:.2f} mV")
+    if len(peaks2) > 0:
+        avg_peak_v2 = np.mean(v_smooth2[peaks2])
+        print(f"Averaged Peak Voltage (Rubber): {avg_peak_v2:.2f} mV")
+    print("--------------------------------------\n")
 
     # === Plotting ===
     line_raw1.set_data(time_axis, v_adc1)
